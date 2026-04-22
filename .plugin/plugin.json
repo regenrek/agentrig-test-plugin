@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "kind": "agentrig:plugin",
+  "id": "regenrek.test-submission",
+  "name": "Test Submission",
+  "description": "Tiny sample plugin used to smoke-test the agentrig submission review pipeline.",
+  "version": "0.1.0",
+  "author": "regenrek",
+  "license": "MIT",
+  "keywords": [],
+  "pluginDependencies": [],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
