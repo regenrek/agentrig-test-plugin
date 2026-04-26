@@ -1,62 +1,50 @@
 # Test Submission
 
-Tiny sample plugin used to smoke-test the agentrig submission review pipeline.
+Reference plugin used to exercise the AgentRig registry submission and review
+pipeline. It is intentionally minimal but covers every artifact kind that a
+plugin can bundle:
 
-## Publishing
+- two skills under `skills/`
+- one MCP server config at `.mcp.json`
+- one hook config at `hooks/hooks.json`
 
-This scaffold is for authoring and local testing. Publish it to a static signed
-registry before using the public install command.
+This repo doubles as the upstream source for the standalone fixture artifacts
+that the registry hosts under `skills/regenrek/test-skill/`,
+`mcps/regenrek/test-mcp/`, and `hooks/regenrek/test-hook/`.
+
+## Layout
+
+```
+.plugin/
+  plugin.json          # Plugin manifest
+skills/
+  test-submission/     # Bundled skill 1
+    SKILL.md
+  checklist-runner/    # Bundled skill 2
+    SKILL.md
+    scripts/run.sh
+.mcp.json              # Bundled MCP server config
+hooks/
+  hooks.json           # Bundled hook config
+README.md
+LICENSE
+```
 
 ## Local testing
 
 ```bash
 agentrig plugin bundle .
-cd ..
-agentrig plugin export --agent claude --pluginsDir ./regenrek.test-submission --out dist/claude-marketplace
+agentrig plugin install codex agentrig/regenrek.test-submission@0.2.0
 ```
 
-After publishing, install it with the canonical registry ref:
+Standalone artifacts can be installed independently from the registry:
 
 ```bash
-agentrig registry add your-registry https://example.com/agentrig
-agentrig plugin install codex your-registry/regenrek.test-submission@0.1.0
-```
-
-## Usage
-
-After installation, the provider plugin will expose this plugin's skills, commands, agents, and related assets in the target environment.
-
-## Structure
-
-```
-regenrek.test-submission/
-├── .plugin/
-│   └── plugin.json     # Plugin manifest
-├── skills/             # Skills directory
-│   └── test-submission/  # Main skill
-│       └── SKILL.md    # Skill instructions
-├── agents/             # Subagents (optional)
-├── hooks/              # Hooks (optional)
-│   └── hooks.json
-├── rules/              # Rule files (optional)
-├── .mcp.json           # MCP servers (optional)
-├── .lsp.json           # LSP servers (optional)
-└── CHANGELOG.md        # Plugin changelog
-```
-
-## Development
-
-### Refresh plugin metadata
-
-Update `.plugin/plugin.json` when plugin identity or public metadata changes.
-
-### Export for Claude Marketplace
-
-```bash
-cd ..
-agentrig plugin export --agent claude --pluginsDir ./regenrek.test-submission --out dist/claude-marketplace
+agentrig skill install codex agentrig/regenrek.test-skill@0.1.0
+agentrig mcp   install codex agentrig/regenrek.test-mcp@0.1.0
+agentrig hook  install codex agentrig/regenrek.test-hook@0.1.0
 ```
 
 ## License
 
-MIT © 2026 regenrek
+MIT (c) 2026 regenrek
